@@ -21,6 +21,6 @@ describe('StartScreen', () => {
 
   it('displays the high score', () => {
     render(<StartScreen onStart={() => {}} highScore={99} />);
-    expect(screen.getByText(/best score: 99/i)).toBeInTheDocument();
+    expect(screen.getByText(/best:\s*99/i)).toBeInTheDocument();
   });
 });

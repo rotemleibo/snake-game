@@ -5,23 +5,40 @@ interface ScoreBoardProps {
 
 export const ScoreBoard = ({ score, highScore }: ScoreBoardProps) => {
   return (
-    <div className="flex w-full max-w-md items-center justify-between rounded-md border border-board-grid bg-black/40 px-4 py-2 font-mono">
-      <div>
-        <div className="text-xs uppercase tracking-widest text-gray-400">Score</div>
-        <div
-          data-testid="score-value"
-          aria-live="polite"
-          aria-label={`Current score ${score}`}
-          className="text-2xl font-bold text-neon-green"
-        >
-          {score}
+    <div className="flex w-full max-w-md items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-mono shadow-lg backdrop-blur-md">
+      <div className="flex items-center gap-3">
+        <span className="text-2xl" aria-hidden="true">
+          ⚡
+        </span>
+        <div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-slate-400">
+            Score
+          </div>
+          <div
+            data-testid="score-value"
+            aria-live="polite"
+            aria-label={`Current score ${score}`}
+            className="bg-gradient-to-r from-emerald-300 to-lime-200 bg-clip-text text-3xl font-extrabold text-transparent"
+          >
+            {score}
+          </div>
         </div>
       </div>
-      <div className="text-right">
-        <div className="text-xs uppercase tracking-widest text-gray-400">Best</div>
-        <div data-testid="high-score-value" className="text-2xl font-bold text-neon-cyan">
-          {highScore}
+      <div className="flex items-center gap-3">
+        <div className="text-right">
+          <div className="text-[10px] uppercase tracking-[0.2em] text-slate-400">
+            Best
+          </div>
+          <div
+            data-testid="high-score-value"
+            className="bg-gradient-to-r from-amber-300 to-yellow-200 bg-clip-text text-3xl font-extrabold text-transparent"
+          >
+            {highScore}
+          </div>
         </div>
+        <span className="text-2xl" aria-hidden="true">
+          🏆
+        </span>
       </div>
     </div>
   );
