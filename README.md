@@ -2,6 +2,8 @@
 
 A modern, polished browser implementation of the classic Snake game — built with React, TypeScript, Vite, and HTML5 Canvas. Features a neon dark theme, smooth 60fps gameplay, three difficulty levels, persistent high scores, and a fully tested pure-function game core.
 
+**🎮 Play it live:** <https://rotemleibo.github.io/snake-game/>
+
 ---
 
 ## ✨ Features
@@ -48,6 +50,24 @@ Open <http://localhost:5173> in your browser.
 npm run build
 npm run preview
 ```
+
+---
+
+## 🚢 Deployment
+
+This project auto-deploys to **GitHub Pages** on every push to `main` via the workflow at [.github/workflows/deploy.yml](.github/workflows/deploy.yml).
+
+**Live site:** <https://rotemleibo.github.io/snake-game/>
+
+### One-time setup (already configured)
+- Vite `base` is set to `/snake-game/` in [vite.config.ts](vite.config.ts) so assets resolve under the repo subpath.
+- In GitHub: **Settings → Pages → Build and deployment → Source** is set to **"GitHub Actions"**.
+
+### How it works
+1. Push to `main` triggers the `Deploy to GitHub Pages` workflow.
+2. The workflow runs `npm ci` and `npm run build`.
+3. The `dist/` folder is uploaded as a Pages artifact and deployed.
+4. You can also trigger a manual deploy from the **Actions** tab via *Run workflow*.
 
 ---
 
