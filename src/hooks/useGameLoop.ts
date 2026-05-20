@@ -30,6 +30,7 @@ export interface UseGameLoopResult {
   restart: () => void;
   pause: () => void;
   resume: () => void;
+  changeDirection: (direction: Direction) => void;
 }
 
 export const useGameLoop = (): UseGameLoopResult => {
@@ -124,5 +125,7 @@ export const useGameLoop = (): UseGameLoopResult => {
     restart: () => dispatchTyped({ type: 'RESTART' }),
     pause: () => dispatchTyped({ type: 'PAUSE' }),
     resume: () => dispatchTyped({ type: 'RESUME' }),
+    changeDirection: (direction) =>
+      dispatchTyped({ type: 'CHANGE_DIRECTION', direction }),
   };
 };

@@ -279,7 +279,7 @@ export const GameCanvas = ({ state }: GameCanvasProps) => {
       ref={canvasRef}
       width={BOARD_SIZE * CELL_SIZE_PX}
       height={BOARD_SIZE * CELL_SIZE_PX}
-      className="rounded-2xl border border-white/10 shadow-[0_20px_60px_-10px_rgba(61,220,132,0.45)]"
+      className="block aspect-square w-full max-w-[min(95vw,70vh,500px)] touch-none select-none rounded-2xl border border-white/10 shadow-[0_20px_60px_-10px_rgba(61,220,132,0.45)]"
       role="img"
       aria-label={`Snake board, score ${state.score}`}
     />
