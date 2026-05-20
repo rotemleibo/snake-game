@@ -5,7 +5,7 @@ import { GameCanvas } from './components/GameCanvas';
 import { ScoreBoard } from './components/ScoreBoard';
 import { StartScreen } from './components/StartScreen';
 import { GameOverScreen } from './components/GameOverScreen';
-import { DPad } from './components/DPad';
+import { Joystick } from './components/Joystick';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
 function GameApp() {
@@ -89,14 +89,14 @@ function GameApp() {
           )}
         </div>
 
-        {/* On-screen D-pad: only on touch/small screens */}
-        {state.status === 'playing' && <DPad onPress={changeDirection} />}
+        {/* Virtual joystick: only on touch/small screens */}
+        {state.status === 'playing' && <Joystick onDirection={changeDirection} />}
 
         <p className="hidden font-mono text-xs text-slate-500 md:block">
           ↑ ↓ ← → / WASD to move • Space to pause
         </p>
         <p className="font-mono text-xs text-slate-500 md:hidden">
-          Swipe on the board or use the buttons
+          Swipe on the board or drag the joystick
         </p>
       </div>
     </div>
