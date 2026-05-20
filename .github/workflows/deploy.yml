@@ -1,9 +1,17 @@
 name: Deploy to GitHub Pages
 
+run-name: Deploy ${{ inputs.branch || github.ref_name }} to GitHub Pages
+
 on:
   push:
-    branches: [main, feat/github-pages-deploy]
+    branches: [main]
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy (leave empty to use the branch selected above)'
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -20,6 +28,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch || github.ref }}
+
+      - name: Show deployed ref
+        run: echo "Deploying ref ${{ inputs.branch || github.ref_name }}"
 
       - name: Setup Node
         uses: actions/setup-node@v4
