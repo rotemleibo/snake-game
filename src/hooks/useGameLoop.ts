@@ -1,7 +1,13 @@
 import { useEffect, useReducer, useRef } from 'react';
 import { gameReducer, createInitialState } from '../game/gameReducer';
 import type { Action, Difficulty, Direction, GameState } from '../types/game';
-import { loadHighScore, saveHighScore } from '../utils/storage';
+import {
+  clearGameState,
+  loadGameState,
+  loadHighScore,
+  saveGameState,
+  saveHighScore,
+} from '../utils/storage';
 
 const KEY_TO_DIRECTION: Record<string, Direction> = {
   ArrowUp: 'UP',
@@ -30,7 +36,19 @@ export const useGameLoop = (): UseGameLoopResult => {
   const [state, dispatch] = useReducer(
     gameReducer,
     undefined,
-    () => createInitialState('medium', loadHighScore()),
+    () => {
+      const persistedHigh = loadHighScore();
+      const saved = loadGameState();
+      if (saved) {
+        // Always restore as paused so the player is not surprised by motion.
+        return {
+          ...saved,
+          status: 'paused' as const,
+          highScore: Math.max(saved.highScore, persistedHigh),
+        };
+      }
+      return createInitialState('medium', persistedHigh);
+    },
   );
 
   // Keep latest state in a ref for the rAF loop.
@@ -47,6 +65,16 @@ export const useGameLoop = (): UseGameLoopResult => {
       lastSavedHighScore.current = state.highScore;
     }
   }, [state.highScore]);
+
+  // Persist in-progress game so F5 / tab close can resume.
+  useEffect(() => {
+    if (state.status === 'playing' || state.status === 'paused') {
+      saveGameState(state);
+    } else {
+      // idle or gameover — discard any prior save.
+      clearGameState();
+    }
+  }, [state]);
 
   // requestAnimationFrame tick loop, gated by tickIntervalMs.
   useEffect(() => {
